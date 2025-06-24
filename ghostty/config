@@ -1,0 +1,19 @@
+theme = "Solarized Dark - Patched"
+
+background-opacity = 0.9
+background = #000000
+
+cursor-style = block
+cursor-style-blink = true
+
+
+keybind = ctrl+r=reload_config
+keybind = ctrl+shift+r=new_split:right
+keybind = ctrl+shift+d=new_split:down
+keybind = ctrl+shift+h=goto_split:left
+keybind = ctrl+shift+j=goto_split:down
+keybind = ctrl+shift+k=goto_split:up
+keybind = ctrl+shift+l=goto_split:right
+keybind = ctrl+shift+q=close_surface
+
+
