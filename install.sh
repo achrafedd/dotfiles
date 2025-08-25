@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ln -sf ~/dotfiles/.zshrc ~/.zshrc
-ln -sf ~/dotfiles/.zshrc.pre-oh-my-zsh ~/.zshrc.pre-oh-my-zsh
-ln -sf ~/dotfiles/nvim ~/.config/nvim
-ln -sf ~/dotfiles/ghostty ~/.config/ghostty
+rm -f ~/.zshrc && cp ~/dotfiles/.zshrc ~/.zshrc
+rm -f ~/.zshrc.pre-oh-my-zsh && cp ~/dotfiles/.zshrc.pre-oh-my-zsh ~/.zshrc.pre-oh-my-zsh
+rm -rf ~/.config/nvim && cp -r ~/dotfiles/nvim ~/.config/nvim
+rm -rf ~/.config/ghostty && cp -r ~/dotfiles/ghostty ~/.config/ghostty
