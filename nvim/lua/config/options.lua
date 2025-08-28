@@ -1,6 +1,4 @@
-vim.g.mapleader = " "
 vim.g.have_nerd_font = false
-
 local opt = vim.opt
 
 opt.number = true
@@ -25,7 +23,7 @@ opt.updatetime = 250
 opt.timeoutlen = 300
 opt.splitright = true
 opt.splitbelow = true
-opt.list = false
+opt.list = true
 opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 opt.inccommand = "split"
 opt.cursorline = true

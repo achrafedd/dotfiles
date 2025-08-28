@@ -8,7 +8,7 @@ return {
     -- {"3rd/image.nvim", opts = {}}, -- Optional image support in preview window: See `# Preview Mode` for more information
   },
 keys = {
-      { "<C-b>", "<cmd>Neotree toggle<cr>", desc = "NeoTree" },
+      { "<leader>e", "<cmd>Neotree toggle<cr>", desc = "NeoTree" },
     },
   lazy = false, -- neo-tree will lazily load itself
   ---@module "neo-tree"
