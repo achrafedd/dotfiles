@@ -5,9 +5,7 @@ opt.number = true
 opt.relativenumber = true
 opt.mouse = ""
 opt.showmode = false
-vim.schedule(function()
-	opt.clipboard = "unnamedplus"
-end)
+opt.clipboard = "unnamedplus"
 opt.breakindent = true
 opt.undofile = true
 opt.tabstop = 2
