@@ -18,9 +18,6 @@ return {
 			require("mason-lspconfig").setup({
 				ensure_installed = {
 					"clangd",
-					"html",
-					"cssls",
-					"ts_ls"
 				},
 			})
 		end,

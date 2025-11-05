@@ -1,11 +1,21 @@
 return {
-	"folke/tokyonight.nvim",
-	lazy = false,
-	priority = 1000,
+	"oxfist/night-owl.nvim",
+	lazy = false, -- make sure we load this during startup if it is your main colorscheme
+	priority = 1000, -- make sure to load this before all the other start plugins
 	config = function()
-		require("tokyonight").setup({
-			transparent = true,
+		-- load the colorscheme here
+		require("night-owl").setup({
+			-- These are the default settings
+			bold = true,
+			italics = true,
+			underline = true,
+			undercurl = true,
+			transparent_background = true,
+			styles = {
+				sidebars = "transparent",
+				floats = "transparent",
+			},
 		})
-		vim.cmd([[colorscheme tokyonight]])
+		vim.cmd.colorscheme("night-owl")
 	end,
 }

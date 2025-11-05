@@ -20,16 +20,6 @@ return {
             ensure_installed = {
                 "bash",
                 "c",
-                "html",
-                "javascript",
-                "json",
-                "lua",
-                "luadoc",
-                "luap",
-                "query",
-                "regex",
-                "vim",
-                "vimdoc",
             },
             incremental_selection = {
                 enable = true,
