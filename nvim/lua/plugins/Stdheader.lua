@@ -4,7 +4,7 @@ return {
   keys = { "<F1>" },
   opts = {
     default_map = true, -- Default mapping <F1> in normal mode.
-    auto_update = true, -- Update header when saving.
+    auto_update = false, -- Update header when saving.
     user = "aeddiba", -- Your user.
     mail = "aeddiba@student.1337.ma", -- Your mail.
     -- add other options.

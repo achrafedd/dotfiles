@@ -2,15 +2,23 @@ return {
 	{
 		'neovim/nvim-lspconfig',
 		config = function()
-			vim.lsp.enable('clangd')
-			vim.lsp.enable('html')
-			vim.lsp.enable('cssls')
+			vim.lsp.enable('pyright')
 			vim.lsp.enable('ts_ls')
+			vim.lsp.enable('clangd')
+			vim.diagnostic.config({
+				virtual_text = true,
+				signs = true, -- Optional: show signs in the gutter
+				underline = true,
+				update_in_insert = false,
+				severity_sort = false,
+			})
 		end,
 	},
 	{
 		"mason-org/mason.nvim",
-		opts = {}
+		config = function()
+			require('mason').setup({})
+		end
 	},
 	{
 		"mason-org/mason-lspconfig.nvim",
@@ -18,6 +26,8 @@ return {
 			require("mason-lspconfig").setup({
 				ensure_installed = {
 					"clangd",
+					"ts_ls",
+					"pyright"
 				},
 			})
 		end,

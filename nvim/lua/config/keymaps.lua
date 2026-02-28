@@ -31,6 +31,13 @@ map("n", "<C-w><right>", "<C-w>>")
 map("n", "<C-w><up>", "<C-w>+")
 map("n", "<C-w><down>", "<C-w>-")
 
+-- Close window
+map("n", "<leader>q", ":q<CR>")
+
+-- terminal
+map("n", "<leader>t", ":split term://zsh | startinsert<CR>")
+map("t", "<Esc>", [[<C-\><C-n>:q<CR>]], { noremap = true, silent = true })
+
 -- Telescope
 local builtin = require("telescope.builtin")
 map("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" })

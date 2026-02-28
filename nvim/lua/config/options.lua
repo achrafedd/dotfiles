@@ -1,9 +1,10 @@
 vim.g.have_nerd_font = false
 local opt = vim.opt
 
+opt.laststatus=3
 opt.number = true
 opt.relativenumber = true
-opt.mouse = ""
+opt.mouse = "a"
 opt.showmode = false
 opt.clipboard = "unnamedplus"
 opt.breakindent = true

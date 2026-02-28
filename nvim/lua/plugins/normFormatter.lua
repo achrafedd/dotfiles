@@ -4,9 +4,9 @@ return {
         local norm = require("42norm")
 
         norm.setup({
-            header_on_save = true,
+            header_on_save = false,
             format_on_save = true,
-            liner_on_change = true,
+            liner_on_change = false,
         })
 
         -- Press "F5" key to run the norminette
