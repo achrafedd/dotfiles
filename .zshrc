@@ -103,6 +103,62 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+
+autoload -Uz vcs_info
+precmd_functions+=(vcs_info)
+
+zstyle ':vcs_info:git:*' formats '%b'
+zstyle ':vcs_info:git:*' actionformats '%b|%a'
+
+setopt PROMPT_SUBST
+
+_prompt_git() {
+  [[ -z $vcs_info_msg_0_ ]] && return
+
+  local branch="$vcs_info_msg_0_"
+  local info=""
+
+  # staged files
+  local staged=$(git diff --cached --name-only 2>/dev/null | wc -l | tr -d ' ')
+  # unstaged modified
+  local modified=$(git diff --name-only 2>/dev/null | wc -l | tr -d ' ')
+  # untracked
+  local untracked=$(git ls-files --others --exclude-standard 2>/dev/null | wc -l | tr -d ' ')
+
+  # ahead / behind remote
+  local ahead=0 behind=0
+  local remote=$(git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null)
+  if [[ -n $remote ]]; then
+    ahead=$(git rev-list @{u}..HEAD 2>/dev/null | wc -l | tr -d ' ')
+    behind=$(git rev-list HEAD..@{u} 2>/dev/null | wc -l | tr -d ' ')
+  fi
+
+  # stashes
+  local stashed=$(git stash list 2>/dev/null | wc -l | tr -d ' ')
+
+  # build info string
+  [[ $staged    -gt 0 ]] && info+=" %F{#c3e88d} ${staged}%f"
+  [[ $modified  -gt 0 ]] && info+=" %F{#ffcb6b} ${modified}%f"
+  [[ $untracked -gt 0 ]] && info+=" %F{#ff5370} ${untracked}%f"
+  [[ $ahead     -gt 0 ]] && info+=" %F{#82aaff}⇡ ${ahead}%f"
+  [[ $behind    -gt 0 ]] && info+=" %F{#f78c6c}⇣ ${behind}%f"
+  [[ $stashed   -gt 0 ]] && info+=" %F{#c792ea} ${stashed}%f"
+
+  echo "%F{#c792ea} %F{#89ddff}%F{#fb542b} %f${branch}%f${info}"
+}
+
+_prompt_exit() {
+  echo "%(?.%F{#c3e88d} ✓.%F{#ff5370} ✗ %?)%f"
+}
+
+_prompt_dir() {
+  echo "%F{#fff} %~%f"
+}
+
+PROMPT='
+%F{#fff}◖%K{#ffffff}%F{#2972b6}   %f%K{#183d6e}$(_prompt_dir) %K{#2f2517}$(_prompt_git) %k%F{#2f2517}◗%f
+$(_prompt_exit) %F{#ffcb6b}~>%f '
+
 # in lieu of restarting the shell
 \. "$HOME/.nvm/nvm.sh"
 
