@@ -1,19 +1,37 @@
 return {
-	'stevearc/conform.nvim',
-	config = function()
-		require("conform").setup({
-			formatters_by_ft = {
-				-- lua = { "stylua" },
-				-- python = { "black" },
-				-- You can customize some of the format options for the filetype (:help conform.format)
-				-- rust = { "rustfmt", lsp_format = "fallback" },
-				javascript = { "prettier"},
-			},
-			format_on_save = {
-				-- These options will be passed to conform.format()
-				timeout_ms = 200,
-				lsp_format = "fallback",
-			},
-		})
-	end
+  {
+    "stevearc/conform.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    config = function()
+      local conform = require("conform")
+      conform.setup({
+        formatters_by_ft = {
+          javascript = { "prettier" },
+          typescript = { "prettier" },
+          javascriptreact = { "prettier" },
+          typescriptreact = { "prettier" },
+          css = { "prettier" },
+          html = { "prettier" },
+          json = { "prettier" },
+          yaml = { "prettier" },
+          markdown = { "prettier" },
+          lua = { "stylua" },
+          python = { "ruff_format" },
+        },
+        format_on_save = {
+          lsp_fallback = true,
+          async = false,
+          timeout_ms = 1000,
+        },
+      })
+
+      vim.keymap.set({ "n", "v" }, "<leader>mp", function()
+        conform.format({
+          lsp_fallback = true,
+          async = false,
+          timeout_ms = 1000,
+        })
+      end, { desc = "Format file or range" })
+    end,
+  },
 }

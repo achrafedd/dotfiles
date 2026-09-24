@@ -1,46 +1,63 @@
-local map = vim.keymap.set
+local keymap = vim.keymap.set
+local opts = { noremap = true, silent = true }
 
--- Save Files
-map("n", "<C-s>", ":wa<CR>")
-map("i", "<C-s>", "<ESC>:wa<CR>")
+-- Save file
+keymap("n", "<C-s>", ":w<CR>", opts)
+keymap("i", "<C-s>", "<Esc>:w<CR>a", opts)
 
--- shift tabs
-map("v", "<", "<gv")
-map("v", ">", ">gv")
+-- Select all (Devaslife signature)
+keymap("n", "<C-a>", "gg<S-v>G", opts)
 
--- Increment/decrement
-map("n", "+", "<C-a>")
-map("n", "-", "<C-x>")
+-- Increment / Decrement
+keymap("n", "+", "<C-a>", opts)
+keymap("n", "-", "<C-x>", opts)
 
--- Select all
-map("n", "<C-a>", "gg<S-v>G")
+-- Delete word backwards (Devaslife signature)
+keymap("n", "dw", 'vb"_d', opts)
 
--- Split window
-map("n", "ss", ":split<Return>", opts)
-map("n", "sv", ":vsplit<Return>", opts)
+-- Delete single character without copying to register (Devaslife signature)
+keymap("n", "x", '"_x', opts)
 
--- Move window
-map("n", "sh", "<C-w>h")
-map("n", "sk", "<C-w>k")
-map("n", "sj", "<C-w>j")
-map("n", "sl", "<C-w>l")
+-- Split window (Devaslife signature: ss, sv)
+keymap("n", "ss", ":split<Return><C-w>w", opts)
+keymap("n", "sv", ":vsplit<Return><C-w>w", opts)
+
+-- Move window (Devaslife signature: sh, sj, sk, sl)
+keymap("n", "sh", "<C-w>h", opts)
+keymap("n", "sk", "<C-w>k", opts)
+keymap("n", "sj", "<C-w>j", opts)
+keymap("n", "sl", "<C-w>l", opts)
 
 -- Resize window
-map("n", "<C-w><left>", "<C-w><")
-map("n", "<C-w><right>", "<C-w>>")
-map("n", "<C-w><up>", "<C-w>+")
-map("n", "<C-w><down>", "<C-w>-")
+keymap("n", "<C-w><left>", "<C-w><", opts)
+keymap("n", "<C-w><right>", "<C-w>>", opts)
+keymap("n", "<C-w><up>", "<C-w>+", opts)
+keymap("n", "<C-w><down>", "<C-w>-", opts)
 
--- Close window
-map("n", "<leader>q", ":q<CR>")
+-- Buffer Navigation
+keymap("n", "<leader>x", ":bdelete<CR>", opts)
 
--- terminal
-map("n", "<leader>t", ":split term://zsh | startinsert<CR>")
-map("t", "<Esc>", [[<C-\><C-n>:q<CR>]], { noremap = true, silent = true })
+-- Visual indenting keep selection
+keymap("v", "<", "<gv", opts)
+keymap("v", ">", ">gv", opts)
 
--- Telescope
-local builtin = require("telescope.builtin")
-map("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" })
-map("n", "<leader>fg", builtin.live_grep, { desc = "Telescope live grep" })
-map("n", "<leader>fb", builtin.buffers, { desc = "Telescope buffers" })
-map("n", "<leader>fh", builtin.help_tags, { desc = "Telescope help tags" })
+-- Move line / selection up and down
+keymap("v", "J", ":m '>+1<CR>gv=gv", opts)
+keymap("v", "K", ":m '<-2<CR>gv=gv", opts)
+
+-- Terminal
+keymap("n", "<leader>t", ":split term://bash | startinsert<CR>", opts)
+keymap("t", "<Esc>", [[<C-\><C-n>]], opts)
+
+-- Commenting (VS Code keymaps: Ctrl+/ for line comment, Alt+Shift+A for block comment)
+keymap("n", "<C-/>", "gcc", { remap = true, desc = "Toggle line comment" })
+keymap("n", "<C-_>", "gcc", { remap = true, desc = "Toggle line comment" })
+keymap("v", "<C-/>", "gc", { remap = true, desc = "Toggle line comment" })
+keymap("v", "<C-_>", "gc", { remap = true, desc = "Toggle line comment" })
+keymap("i", "<C-/>", "<Esc>gccgi", { remap = true, desc = "Toggle line comment" })
+keymap("i", "<C-_>", "<Esc>gccgi", { remap = true, desc = "Toggle line comment" })
+
+keymap("n", "<A-S-a>", "gbc", { remap = true, desc = "Toggle block comment" })
+keymap("v", "<A-S-a>", "gb", { remap = true, desc = "Toggle block comment" })
+keymap("i", "<A-S-a>", "<Esc>gbcgi", { remap = true, desc = "Toggle block comment" })
+
